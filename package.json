@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
-    "test:unit": "mocha --require @babel/register --require ./test/helpers.js --require ./test/dom.js --require 'src/**/*.spec.js'",
+    "test:unit": "mocha --require @babel/register --require ./test/helpers.js --require ./test/dom.js --require babel-polyfill src/*.test.js",
     "test:unit:watch": "npm run test:unit -- --watch"
   },
   "keywords": [],
@@ -15,7 +15,9 @@
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
     "babel-loader": "^8.0.4",
+    "babel-polyfill": "^6.26.0",
     "chai": "^4.2.0",
     "jsdom": "^13.1.0",
     "mocha": "^5.2.0",
