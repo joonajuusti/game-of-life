@@ -1,25 +1,23 @@
 const ALIVE = true
 const DEAD = false
 
-export class Rule{
-  nextState(isAlive, liveNeighboursCount) {
-    if(isAlive) {
-      return this.nextStateOfLiveCell(liveNeighboursCount)
-    }
-    else {
-      return this.nextStateOfDeadCell(liveNeighboursCount)
-    }
+export default (isAlive, liveNeighboursCount) => {
+  if(isAlive) {
+    return nextStateOfLiveCell(liveNeighboursCount)
   }
+  else {
+    return nextStateOfDeadCell(liveNeighboursCount)
+  }
+}
 
-  nextStateOfLiveCell(liveNeighboursCount) {
-    if(liveNeighboursCount < 2 || liveNeighboursCount > 3) {
-      return DEAD
-    } return ALIVE
-  }
+function nextStateOfLiveCell(liveNeighboursCount) {
+  if(liveNeighboursCount < 2 || liveNeighboursCount > 3) {
+    return DEAD
+  } return ALIVE
+}
 
-  nextStateOfDeadCell(liveNeighboursCount) {
-    if(liveNeighboursCount === 3) {
-      return ALIVE
-    } return DEAD
-  }
+function nextStateOfDeadCell(liveNeighboursCount) {
+  if(liveNeighboursCount === 3) {
+    return ALIVE
+  } return DEAD
 }
