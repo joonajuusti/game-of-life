@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
-    "test:unit": "mocha --require @babel/register --require ./test/helpers.js --require ./test/dom.js --require babel-polyfill src/*.test.js",
-    "test:unit:watch": "npm run test:unit -- --watch"
+    "test": "mocha --require @babel/register --require ./test/helpers.js --require ./test/dom.js --require babel-polyfill src/*.test.js",
+    "test:watch": "npm test -- --watch"
   },
   "keywords": [],
   "author": "",
