@@ -2,7 +2,7 @@ import {
   getNeighboursOfCell,
   getPossibleNewCells,
   calculateAmountOfLiveNeighbours,
-  calculateNextGenerationLiveCells
+  calculateNextGeneration
 } from './BoardHelper';
 
 const neighboursOfOrigo = [
@@ -50,18 +50,33 @@ describe.only('BoardHelper', () => {
     expect(calculateAmountOfLiveNeighbours(cell, liveCells)).to.equal(2)
   })
 
-  it('should return no live cells for next generation for two adjacent cells', () => {
+  it('should return no live cells as next generation live cells for two adjacent cells', () => {
     const liveCells = [{ x: 0, y: 0 }, { x: 0, y: 1 }]
-    expect(calculateNextGenerationLiveCells(liveCells).length).to.equal(0)
+    expect(calculateNextGeneration(liveCells).liveCells.length).to.equal(0)
   })
 
-  it('should return three live cells for next generation for a line of three cells', () => {
+  it('should return three live cells as next generation live cells for a line of three cells', () => {
     const liveCells = [{ x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }]
-    expect(calculateNextGenerationLiveCells(liveCells).length).to.equal(3)
+    expect(calculateNextGeneration(liveCells).liveCells.length).to.equal(3)
   })
 
-  it('should return four live cells for next generation for an l-shape of three cells', () => {
+  it('should return four live cells as next generation live cells for an l-shape of three cells', () => {
     const liveCells = [{ x: 0, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 0 }]
-    expect(calculateNextGenerationLiveCells(liveCells).length).to.equal(4)
+    expect(calculateNextGeneration(liveCells).liveCells.length).to.equal(4)
+  })
+
+  it('should return two cells as cells to remove for two adjacent cells', () => {
+    const liveCells = [{ x: 0, y: 0 }, { x: 0, y: 1 }]
+    expect(calculateNextGeneration(liveCells).cellChanges.length).to.equal(2)
+  })
+
+  it('should return four cells as cells to remove for a line of three cells', () => {
+    const liveCells = [{ x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }]
+    expect(calculateNextGeneration(liveCells).cellChanges.length).to.equal(4)
+  })
+
+  it('should return one cell as cell to remove for an l-shape of three cells', () => {
+    const liveCells = [{ x: 0, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 0 }]
+    expect(calculateNextGeneration(liveCells).cellChanges.length).to.equal(1)
   })
 });

@@ -32,22 +32,28 @@ const calculateAmountOfLiveNeighbours = (cell, liveCells) => {
   return liveNeighboursOfCell.length
 }
 
-const calculateNextGenerationLiveCells = liveCells => {
-  const nextGenrationCells = []
+const calculateNextGeneration = liveCells => {
+  const nextGeneration = {
+    liveCells: [],
+    cellChanges: []
+  }
   const possibleNewCells = getPossibleNewCells(liveCells)
   liveCells.forEach(liveCell => {
     const liveNeighbourAmount = calculateAmountOfLiveNeighbours(liveCell, liveCells)
     if (nextState(true, liveNeighbourAmount)) {
-      nextGenrationCells.push(liveCell)
+      nextGeneration.liveCells.push(liveCell)
+    } else {
+      nextGeneration.cellChanges.push(liveCell)
     }
   })
   possibleNewCells.forEach(deadCell => {
     const liveNeighbourAmount = calculateAmountOfLiveNeighbours(deadCell, liveCells)
     if (nextState(false, liveNeighbourAmount)) {
-      nextGenrationCells.push(deadCell)
+      nextGeneration.liveCells.push(deadCell)
+      nextGeneration.cellChanges.push(deadCell)
     }
   })
-  return nextGenrationCells
+  return nextGeneration
 }
 
-export { getNeighboursOfCell, getPossibleNewCells, calculateAmountOfLiveNeighbours, calculateNextGenerationLiveCells }
+export { getNeighboursOfCell, getPossibleNewCells, calculateAmountOfLiveNeighbours, calculateNextGeneration }
