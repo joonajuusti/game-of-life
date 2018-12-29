@@ -7,6 +7,12 @@ const boardWidthInCells = 30
 const boardHeightInCells = 20
 const cellSideLength = 25
 
+const divStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center'
+}
+
 class App extends React.Component {
   constructor(props){
     super(props)
@@ -67,7 +73,6 @@ class App extends React.Component {
       const index = point.y * boardWidthInCells + point.x
       newCellAliveStatuses[index] = !cellAliveStatuses[index]
     })
-
     this.setState({ liveCellPoints: nextGenerationFiltered.liveCells, cellAliveStatuses: newCellAliveStatuses })
   }
 
@@ -81,7 +86,7 @@ class App extends React.Component {
   render() {
     const { cellAliveStatuses, simulationOn } = this.state
     return(
-      <div>
+      <div style={divStyle}>
         <Board
           cellAliveStatuses={cellAliveStatuses}
           toggleCellStatus={this.toggleCellStatus}
