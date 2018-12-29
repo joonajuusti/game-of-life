@@ -87,6 +87,7 @@ class App extends React.Component {
     const { cellAliveStatuses, simulationOn } = this.state
     return(
       <div style={divStyle}>
+        <h1>Conway's Game of Life</h1>
         <Board
           cellAliveStatuses={cellAliveStatuses}
           toggleCellStatus={this.toggleCellStatus}
