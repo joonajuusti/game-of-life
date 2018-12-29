@@ -3,7 +3,7 @@ import Board from './Board'
 import { calculateNextGeneration } from './BoardHelper'
 import _ from 'lodash'
 
-const boardWidthInCells = 30
+const boardWidthInCells = 40
 const boardHeightInCells = 20
 const cellSideLength = 25
 
@@ -21,6 +21,7 @@ class App extends React.Component {
       liveCellPoints: [],
       cellAliveStatuses: Array(boardWidthInCells * boardHeightInCells).fill(false),
       simulationOn: false,
+      generation: 0
     }
   }
 
@@ -60,7 +61,7 @@ class App extends React.Component {
   }
 
   simulate = () => {
-    const { liveCellPoints, cellAliveStatuses } = this.state
+    const { liveCellPoints, cellAliveStatuses, generation } = this.state
     const newCellAliveStatuses = [...cellAliveStatuses]
     const nextGeneration = calculateNextGeneration(liveCellPoints)
 
@@ -73,7 +74,11 @@ class App extends React.Component {
       const index = point.y * boardWidthInCells + point.x
       newCellAliveStatuses[index] = !cellAliveStatuses[index]
     })
-    this.setState({ liveCellPoints: nextGenerationFiltered.liveCells, cellAliveStatuses: newCellAliveStatuses })
+    this.setState({
+      liveCellPoints: nextGenerationFiltered.liveCells,
+      cellAliveStatuses: newCellAliveStatuses,
+      generation: generation + 1,
+    })
   }
 
   filterPoint = point => {
@@ -84,10 +89,11 @@ class App extends React.Component {
   }
 
   render() {
-    const { cellAliveStatuses, simulationOn } = this.state
+    const { cellAliveStatuses, simulationOn, generation } = this.state
     return(
       <div style={divStyle}>
         <h1>Conway's Game of Life</h1>
+        <p>{`Generation: ${generation}`}</p>
         <Board
           cellAliveStatuses={cellAliveStatuses}
           toggleCellStatus={this.toggleCellStatus}
