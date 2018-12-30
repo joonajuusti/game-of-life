@@ -1,10 +1,11 @@
 import React from 'react'
 import Board from './Board'
+import BoardController from './BoardController'
 import { calculateNextGeneration } from './BoardHelper'
 import _ from 'lodash'
 
-const boardWidthInCells = 40
-const boardHeightInCells = 20
+const boardWidthInCells = 35
+const boardHeightInCells = 15
 const cellSideLength = 25
 
 const divStyle = {
@@ -88,6 +89,16 @@ class App extends React.Component {
     return true
   }
 
+  resetBoard = () => {
+    const { cellAliveStatuses, simulationOn } = this.state
+    this.setState({
+      liveCellPoints: [],
+      cellAliveStatuses: cellAliveStatuses.map(isAlive => false),
+      simulationOn: false,
+      generation: 0
+    })
+  }
+
   render() {
     const { cellAliveStatuses, simulationOn, generation } = this.state
     return(
@@ -101,7 +112,11 @@ class App extends React.Component {
           boardHeightInCells={boardHeightInCells}
           cellSideLength={cellSideLength}
         />
-        <button onClick={this.toggleSimulation}>{simulationOn ? 'Stop' : 'Start'}</button>
+        <BoardController
+          toggleSimulation={this.toggleSimulation}
+          resetBoard={this.resetBoard}
+          simulationOn={simulationOn}
+        />
       </div>
     )
   }
